@@ -1,0 +1,17 @@
+.plan-container
+	%ul
+		- @plans.each do |plan|
+			%li.plan
+				.header
+					=plan[:name]
+				.price
+					=(plan[:amount]/100)
+				= form_tag('/subscription_checkout', {method: :post, plan: plan}) do
+					%input{type: "hidden", name: "plan_id", value: plan[:id]}
+					%script{src: "https://checkout.stripe.com/checkout.js",
+						class: "stripe-button",
+						'data-key'=> "#{Rails.configuration.stripe[:publishable_key]}", 
+						'data-amount'=> (plan[:amount]),
+						'data-email' => "customer@example.com",
+						'data-currency' => plan[:currency],
+						'data-image' => '/assets/sitepoint.png'}

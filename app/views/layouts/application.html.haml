@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %title SitepointStripeExample
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    - if flash[:alert]
+      - if flash[:alert].is_a?(Array)
+        .alert
+          - flash[:alert].each do |msg|
+            .msg
+              = msg
+          .remove
+            &times;
+      - else
+        .alert
+          .msg
+            = flash[:alert]
+          .remove
+            &times;
+
+    - if flash[:notice]
+      .notice
+        .msg
+          = flash[:notice]
+        .remove
+          &times;
+    .content
+      =yield
